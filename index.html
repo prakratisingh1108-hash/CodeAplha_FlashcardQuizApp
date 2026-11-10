@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Flashcard Quiz App - CodeAlpha</title>
+<style>
+body{font-family:Arial;text-align:center;background:#f0f2f5;padding:20px}
+.card{background:white;max-width:400px;margin:20px auto;padding:30px;border-radius:15px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+button{padding:10px 18px;margin:5px;border:none;border-radius:8px;background:#6C63FF;color:white;cursor:pointer}
+input{padding:10px;width:80%;margin:5px;border:1px solid #ddd;border-radius:8px}
+#answer{display:none;margin-top:15px;color:#333;font-weight:bold}
+</style>
+</head>
+<body>
+<h1>📚 Flashcard Quiz App</h1>
+<p>CodeAlpha Internship - Task 1</p>
+
+<div class="card">
+<h2 id="question">What is HTML?</h2>
+<p id="answer">HTML is HyperText Markup Language used to create web pages.</p>
+<button onclick="showAnswer()">Show Answer</button>
+<br><br>
+<button onclick="prevCard()">Previous</button>
+<button onclick="nextCard()">Next</button>
+</div>
+
+<div class="card">
+<h3>Add New Flashcard</h3>
+<input id="newQ" placeholder="Enter Question">
+<input id="newA" placeholder="Enter Answer">
+<br>
+<button onclick="addCard()">Add Card</button>
+<button onclick="deleteCard()">Delete This Card</button>
+</div>
+<p id="count"></p>
+
+<script>
+let cards=[
+{q:"What is HTML?",a:"HTML is HyperText Markup Language used to create web pages."},
+{q:"What is CSS?",a:"CSS is used to style web pages."},
+{q:"What is JavaScript?",a:"JavaScript makes web pages interactive."}
+];
+let index=0;
+function update(){
+document.getElementById("question").innerText=cards[index].q;
+document.getElementById("answer").innerText=cards[index].a;
+document.getElementById("answer").style.display="none";
+document.getElementById("count").innerText="Card "+(index+1)+" / "+cards.length;
+}
+function showAnswer(){document.getElementById("answer").style.display="block"}
+function nextCard(){index=(index+1)%cards.length;update()}
+function prevCard(){index=(index-1+cards.length)%cards.length;update()}
+function addCard(){
+let q=document.getElementById("newQ").value;
+let a=document.getElementById("newA").value;
+if(q && a){cards.push({q:q,a:a});alert("Card Added!");update()}
+else{alert("Please fill both fields")}
+}
+function deleteCard(){
+if(cards.length>1){cards.splice(index,1);index=0;update()}
+else{alert("Cannot delete last card")}
+}
+update();
+</script>
+</body>
+  </html>
